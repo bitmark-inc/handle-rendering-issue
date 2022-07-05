@@ -1,8 +1,5 @@
 #!/bin/sh -l
 
-local issue owner repo GITHUB_TOKEN
-local out_owner out_repo OUT_GITHUB_TOKEN
-
 issue="${1}" ; shift
 owner="${1}" ; shift
 repo="${1}" ; shift
