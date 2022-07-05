@@ -1,8 +1,7 @@
 name: 'Handle Rendering Issue Action'
 description: 'Process rendering issues comment with link to new board'
-author: 'GitHub'
+author: 'Bitmark-Inc.'
 inputs:
-team:
   issue:
     description: 'The issue number to process'
     required: true
@@ -24,6 +23,13 @@ team:
   OUT_GITHUB_TOKEN:
     description: 'The token to create issue in outgoing repo. Use `secrets.OUT_GITHUB_TOKEN` to inject it'
     required: true
+outputs:
+  issue:
+    description: 'The issue number created by this process'
+  owner:
+    description: 'The owner of the outgoing repo'
+  repo:
+    description: 'The name of the outgoing repo'
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -35,3 +41,6 @@ runs:
     - ${{ inputs.outOwner }}
     - ${{ inputs.outRepo }}
     - ${{ inputs.OUT_GITHUB_TOKEN }}
+branding:
+  icon: triangle
+  color: purple
