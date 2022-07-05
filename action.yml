@@ -1,12 +1,37 @@
-name: 'Container Action Template'
-description: 'Get started with Container actions'
+name: 'Handle Rendering Issue Action'
+description: 'Process rendering issues comment with link to new board'
 author: 'GitHub'
-inputs: 
-  myInput:
-    description: 'Input to use'
-    default: 'world'
+inputs:
+team:
+  issue:
+    description: 'The issue number to process'
+    required: true
+  owner:
+    description: 'The owner of the incoming repo'
+    required: true
+  repo:
+    description: 'The name of the incoming repo'
+    required: true
+  GITHUB_TOKEN:
+    description: 'The token for incoming repo. Use `secrets.GITHUB_TOKEN` to inject it'
+    required: true
+  outOwner:
+    description: 'The owner of the outgoing repo'
+    required: true
+  outRepo:
+    description: 'The name of the outgoing repo'
+    required: true
+  OUT_GITHUB_TOKEN:
+    description: 'The token to create issue in outgoing repo. Use `secrets.OUT_GITHUB_TOKEN` to inject it'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.myInput }}
+    - ${{ inputs.issue }}
+    - ${{ inputs.owner }}
+    - ${{ inputs.repo }}
+    - ${{ inputs.GITHUB_TOKEN }}
+    - ${{ inputs.outOwner }}
+    - ${{ inputs.outRepo }}
+    - ${{ inputs.OUT_GITHUB_TOKEN }}
