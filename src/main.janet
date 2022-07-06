@@ -219,10 +219,10 @@ mutation CloseWithComment {
 
   (def headers {"Content-Type" "application/json"
                 "Accept" "application/vnd.github.v3+json"
-                "Authorization" token})
+                "Authorization" (string "Bearer " token)})
   (def out-headers {"Content-Type" "application/json"
                 "Accept" "application/vnd.github.v3+json"
-                "Authorization" out-token})
+                "Authorization" (string "Bearer " out-token)})
 
 
   (def issue-result (exec-ql (ql-issue owner repo issue) headers))
