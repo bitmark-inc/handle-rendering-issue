@@ -37,6 +37,8 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
+    - --verbose
+    - --debug
     - --issue
     - ${{ inputs.issue }}
     - --owner
