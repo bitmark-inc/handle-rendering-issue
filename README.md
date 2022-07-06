@@ -9,6 +9,7 @@
     issue: ${{ github.event.issue.number }}
     owner: ${{ github.repository_owner }}
     repo: ${{ github.repository }}
+    label: "action one"
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     outOwner: ${{ github.repository_owner }}
     outRepo: new-output-repo-name
@@ -28,6 +29,7 @@
 | issue               | true      | incoming issue number |
 | owner               | true      | incoming repository owner |
 | repo                | true      | incoming repo name |
+| label               | true      | only process issues created with this label |
 | GITHUB\_TOKEN       | true      | incoming repo access token |
 | outOwner            | true      | outgoing repository owner |
 | outRepo             | true      | outgoing repo name |

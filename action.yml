@@ -11,6 +11,9 @@ inputs:
   repo:
     description: 'The name of the incoming repo'
     required: true
+  label:
+    description: 'The name the label for actioning the processing'
+    required: true
   GITHUB_TOKEN:
     description: 'The token for incoming repo. Use `secrets.GITHUB_TOKEN` to inject it'
     required: true
@@ -34,12 +37,21 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
+    - --issue
     - ${{ inputs.issue }}
+    - --owner
     - ${{ inputs.owner }}
+    - --repo
     - ${{ inputs.repo }}
+    - --label
+    - ${{ inputs.label }}
+    - --token
     - ${{ inputs.GITHUB_TOKEN }}
+    - --out-owner
     - ${{ inputs.outOwner }}
+    - --out-repo
     - ${{ inputs.outRepo }}
+    - --out-token
     - ${{ inputs.OUT_GITHUB_TOKEN }}
 branding:
   icon: triangle

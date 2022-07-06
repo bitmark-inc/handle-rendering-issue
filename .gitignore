@@ -1,0 +1,7 @@
+# .gitignore
+
+build/
+jpm_tree/
+*.o
+*.a
+*.so
