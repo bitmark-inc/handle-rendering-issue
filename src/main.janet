@@ -282,7 +282,7 @@ mutation CloseWithComment {
             (when debug
               (printf "close-result: %P" close-result))
 
-            (workflow-set-output "issue" number)
+            (workflow-set-output "issue" (string number))
             (workflow-set-output "owner" out-owner)
             (workflow-set-output "repo" out-repo))
 
