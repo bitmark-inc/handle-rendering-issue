@@ -113,6 +113,15 @@ mutation CloseWithComment {
        :status status})))
 
 
+(defn remove-owner "remove '<owner>/' if present as a prefix"
+  [owner repo-path]
+
+  (let [prefix (string owner "/")
+        len (length prefix)]
+    (if (string/has-prefix? prefix repo-path)
+      (string/slice repo-path len)
+      repo-path)))
+
 (defn find-by-prefix "find a prefixed line from a block of text"
   [prefix text]
 
@@ -192,12 +201,12 @@ mutation CloseWithComment {
     (fail "issssue value: `%s` is not a number\n" (get opts "issue")))
 
   (def owner (get opts "owner"))
-  (def repo (get opts "repo"))
+  (def repo (remove-owner owner (get opts "repo")))
   (def report-label (get opts "label"))
   (def token (get opts "token"))
 
   (def out-owner (get opts "out-owner"))
-  (def out-repo (get opts "out-repo"))
+  (def out-repo (remove-owner out-owner (get opts "out-repo")))
   (def out-token (get opts "out-token"))
 
 
