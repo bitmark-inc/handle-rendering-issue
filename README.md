@@ -39,9 +39,10 @@ Add the issue to a project board filling in any matching fields.
 | owner         | true      | incoming repository owner |
 | repo          | true      | incoming repo name |
 | label         | true      | only process issues created with this label |
-| fields        | true      | comma separated list e.g., `Title,Creator` |
+| fields        | true      | comma separated list e.g., `Artwork,Creator` |
 | token         | true      | incoming repo access token |
 | outOwner      | true      | outgoing repository/project owner |
+| outOwnerType  | false     | outgoing project owner type: `[user|org]` |
 | outRepo       | true      | outgoing repo name |
 | outProject    | true      | outgoing project name |
 | outToken      | true      | outgoing project/repo access token |

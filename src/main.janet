@@ -246,8 +246,9 @@ mutation UpdateProjectItem {
    "out-owner" {:kind :option :short "O"
                 :help "output repository owner"
                 :required true}
-   "out-user" {:kind :flag :short "U"
-               :help "output repository owner is user rather than organisation"}
+   "out-owner-type" {:kind :option :short "U"
+                     :help "output repository owner is user rather than organisation"
+                     :required false}
    "out-repo" {:kind :option :short "R"
                :help "output repository name"
                :required true}
@@ -281,7 +282,7 @@ mutation UpdateProjectItem {
   (def token (get opts "token"))
 
   (def out-owner (get opts "out-owner"))
-  (def out-user-org (if (get opts "out-user") "user" "organisation"))
+  (def out-user-org (if (= "user" (get opts "out-owner-type")) "user" "organization"))
   (def out-repo (remove-owner out-owner (get opts "out-repo")))
   (def out-project (get opts "out-project"))
 
