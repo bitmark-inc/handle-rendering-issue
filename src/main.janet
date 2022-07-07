@@ -93,7 +93,7 @@ mutation CreateIssue {
   (let [q `
 mutation CloseWithComment {
   addComment(input: {subjectId: "%s", body: "%s"}) { clientMutationId }
-  closeIssue(input: {issueId: "%s"}) { clientMutationId }
+  updateIssue(input: {id: "%s", state: CLOSED}) { clientMutationId }
 }`
         s (string/format q issue-id body issue-id)]
     (json/encode @{"query" s})))
