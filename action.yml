@@ -14,7 +14,10 @@ inputs:
   label:
     description: 'The name the label for actioning the processing'
     required: true
-  GITHUB_TOKEN:
+  fields:
+    description: 'A comma separated set of field to extract (case sensitive)'
+    required: true
+  token:
     description: 'The token for incoming repo. Use `secrets.GITHUB_TOKEN` to inject it'
     required: true
   outOwner:
@@ -23,16 +26,27 @@ inputs:
   outRepo:
     description: 'The name of the outgoing repo'
     required: true
-  OUT_GITHUB_TOKEN:
+  outProject:
+    description: 'The name of the outgoing project'
+    required: true
+  outToken:
     description: 'The token to create issue in outgoing repo. Use `secrets.OUT_GITHUB_TOKEN` to inject it'
     required: true
 outputs:
-  issue:
+  issueNumber:
     description: 'The issue number created by this process'
+  issueID:
+    description: 'The issue ID created by this process'
   owner:
     description: 'The owner of the outgoing repo'
   repo:
     description: 'The name of the outgoing repo'
+  project:
+    description: 'The name of the project'
+  projectID:
+    description: 'The ID of the project'
+  projectItemID:
+    description: 'The ID of the record added to the project'
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -47,14 +61,18 @@ runs:
     - ${{ inputs.repo }}
     - --label
     - ${{ inputs.label }}
+    - --fields
+    - ${{ inputs.fields }}
     - --token
-    - ${{ inputs.GITHUB_TOKEN }}
+    - ${{ inputs.token }}
     - --out-owner
     - ${{ inputs.outOwner }}
     - --out-repo
     - ${{ inputs.outRepo }}
+    - --out-project
+    - ${{ inputs.outProject }}
     - --out-token
-    - ${{ inputs.OUT_GITHUB_TOKEN }}
+    - ${{ inputs.outToken }}
 branding:
   icon: triangle
   color: purple

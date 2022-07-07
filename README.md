@@ -1,5 +1,8 @@
 # Handle rendering issues
 
+Create a new issue on anew board with only part of the data from incoming issue.
+Add the issue to a project board filling in any matching fields.
+
 # Quick start
 
 ```yaml
@@ -10,35 +13,47 @@
     owner: ${{ github.repository_owner }}
     repo: ${{ github.repository }}
     label: "action one"
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    fields: "Artwork,Creator,Collection,TokenURL"
+    token: ${{ secrets.GITHUB_TOKEN }}
     outOwner: ${{ github.repository_owner }}
     outRepo: new-output-repo-name
-    OUT_GITHUB_TOKEN: ${{ secrets.OUT_GITHUB_TOKEN }}
+    outProject: "output project name"
+    outToken: ${{ secrets.OUT_GITHUB_TOKEN }}
 - name: Print outputs
   run: |
     echo ${{ steps.my_step_id.outputs.owner }}
     echo ${{ steps.my_step_id.outputs.repo }}
-    echo ${{ steps.my_step_id.outputs.issue }}
+    echo ${{ steps.my_step_id.outputs.issueNumber }}
+    echo ${{ steps.my_step_id.outputs.issueID }}
+    echo ${{ steps.my_step_id.outputs.project }}
+    echo ${{ steps.my_step_id.outputs.projectID }}
+    echo ${{ steps.my_step_id.outputs.projectItemID }}
 ```
 
 
 # Inputs
 
-| Name                | Required  | Description  |
-| ------------------- | --------- | ------------ |
-| issue               | true      | incoming issue number |
-| owner               | true      | incoming repository owner |
-| repo                | true      | incoming repo name |
-| label               | true      | only process issues created with this label |
-| GITHUB\_TOKEN       | true      | incoming repo access token |
-| outOwner            | true      | outgoing repository owner |
-| outRepo             | true      | outgoing repo name |
-| OUT\_GITHUB\_TOKEN  | true      | outgoing repo access token |
+| Name          | Required  | Description  |
+| ------------- | --------- | ------------ |
+| issue         | true      | incoming issue number |
+| owner         | true      | incoming repository owner |
+| repo          | true      | incoming repo name |
+| label         | true      | only process issues created with this label |
+| fields        | true      | comma separated list e.g., `Title,Creator` |
+| token         | true      | incoming repo access token |
+| outOwner      | true      | outgoing repository/project owner |
+| outRepo       | true      | outgoing repo name |
+| outProject    | true      | outgoing project name |
+| outToken      | true      | outgoing project/repo access token |
 
 # Outputs
 
-| Name   | Description  |
-| ------ | ------------ |
-| issue  | newly created issue number in outgoing repo |
-| owner  | owner of outgoing repo |
-| repo   | name of outgoing repo |
+| Name          | Description  |
+| ------------- | ------------ |
+| issueID       | newly created issue ID in outgoing repo |
+| issueNumber   | newly created issue number in outgoing repo |
+| owner         | owner of outgoing repo |
+| repo          | name of outgoing repo |
+| project       | name of project |
+| projectID     | ID of project |
+| projectItemID | ID of project item just added |
