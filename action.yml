@@ -71,7 +71,7 @@ runs:
     - ${{ inputs.label }}
     - --fields
     - ${{ inputs.fields }}
-    - --close-commane
+    - --close-comment
     - ${{ inputs.closeComment }}
     - --token
     - ${{ inputs.token }}
