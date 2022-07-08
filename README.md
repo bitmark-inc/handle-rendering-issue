@@ -40,9 +40,10 @@ Add the issue to a project board filling in any matching fields.
 | repo          | true      | incoming repo name |
 | label         | true      | only process issues created with this label |
 | fields        | true      | comma separated list e.g., `Artwork,Creator` |
+| closeComment  | false     | message string with a single %s where the URL should be substituted |
 | token         | true      | incoming repo access token |
 | outOwner      | true      | outgoing repository/project owner |
-| outOwnerType  | false     | outgoing project owner type: `[user|org]` |
+| outOwnerType  | false     | outgoing project owner type: `[user|orgainization]` default: `organization` |
 | outRepo       | true      | outgoing repo name |
 | outProject    | true      | outgoing project name |
 | outToken      | true      | outgoing project/repo access token |

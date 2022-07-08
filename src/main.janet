@@ -240,6 +240,9 @@ mutation UpdateProjectItem {
    "fields" {:kind :option :short "f"
              :help "comma separated list of fields for extracting data"
              :required true}
+   "close-comment" {:kind :option :short "c"
+             :help "format with single %s for the redirect url"
+             :required false}
    "token" {:kind :option :short "t"
             :help "token to access owne/repo"
             :required true}
@@ -271,13 +274,19 @@ mutation UpdateProjectItem {
 
   (def issue (scan-number (get opts "issue")))
   (when (nil? issue)
-    (fail "issssue value: `%s` is not a number\n" (get opts "issue")))
+    (fail "issue value: `%s` is not a number\n" (get opts "issue")))
 
   (def owner (get opts "owner"))
   (def repo (remove-owner owner (get opts "repo")))
   (def report-label (get opts "label"))
   (def fields
     (map string/trim (string/split "," (get opts "fields"))))
+
+  (def close-comment
+    (let [s (get opts "close-comment")]
+      (if (or (nil? s) (= s ""))
+              "This issue has been moved to a public board: %s\n"
+              s)))
 
   (def token (get opts "token"))
 
@@ -378,7 +387,7 @@ mutation UpdateProjectItem {
           new-issue-id (get-in create-result [:body "data" "createIssue" "issue" "id"])
           new-url (github-issue-url out-owner out-repo number)
           old-url (github-issue-url owner repo issue)
-          issue-comment (string/format "This issue has been moved to a public board: %s\n" new-url)]
+          issue-comment (string/format close-comment new-url)]
 
       (when verbose
         (printf "new issue created: %s" new-url)

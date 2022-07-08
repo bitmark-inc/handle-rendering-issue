@@ -17,6 +17,10 @@ inputs:
   fields:
     description: 'A comma separated set of field to extract (case sensitive)'
     required: true
+  closeComment:
+    description: 'A message string with a single %s where the URL should be substituted'
+    required: false
+    default: 'This issue has been moved to a public board: %s'
   token:
     description: 'The token for incoming repo. Use `secrets.GITHUB_TOKEN` to inject it'
     required: true
@@ -67,6 +71,8 @@ runs:
     - ${{ inputs.label }}
     - --fields
     - ${{ inputs.fields }}
+    - --close-commane
+    - ${{ inputs.closeComment }}
     - --token
     - ${{ inputs.token }}
     - --out-owner
