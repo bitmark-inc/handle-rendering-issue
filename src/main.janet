@@ -200,9 +200,10 @@ mutation UpdateProjectItem {
   (if (or
         (string/has-prefix? "#" str)
         (string/has-prefix? "@" str)
+        (string/find "`" str)
         (string/find " #" str)
         (string/find " @" str))
-    (string "``" str "``")
+    (string "``" (string/replace-all "``" "` ` " str) "``")
     str))
 
 
