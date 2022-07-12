@@ -195,6 +195,17 @@ mutation UpdateProjectItem {
       "")))
 
 
+(defn escape-text "escape a text field containg # and @ at the begining of a word as these are special to GitHub markdown"
+  [str]
+  (if (or
+        (string/has-prefix? "#" str)
+        (string/has-prefix? "@" str)
+        (string/find " #" str)
+        (string/find " @" str))
+    (string "``" str "``")
+    str))
+
+
 (defn decode-issue "extract data from the issue body"
   [fields issue]
 
@@ -370,7 +381,7 @@ mutation UpdateProjectItem {
                                   (get-in decoded-issue [:extracted "Creator"] "Unknown"))
         new-issue-body (string
                         ;(map (fn [a] (def [k v] a)
-                                (string k ": " v "\n"))
+                                (string k ": " (escape-text v) "\n"))
                               (pairs (get decoded-issue :extracted))))]
     (when debug
       (printf "new title: %P" new-issue-title)
@@ -411,7 +422,7 @@ mutation UpdateProjectItem {
               out-owner out-project))
 
       (def item-id (get-in add-to-project-result [:body "data" "addProjectV2ItemById" "item" "id"]))
-       (def field-list-in (get-in add-to-project-result [:body "data" "addProjectV2ItemById" "item" "project" "fields" "nodes"]))
+      (def field-list-in (get-in add-to-project-result [:body "data" "addProjectV2ItemById" "item" "project" "fields" "nodes"]))
       (def field-list (filter truthy?
                         (map (fn [f]
                                (let [value (get-in decoded-issue [:extracted (get f "name")])
